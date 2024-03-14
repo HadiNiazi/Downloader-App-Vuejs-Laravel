@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\V1\AuthController;
+use App\Http\Controllers\API\V1\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,11 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('authenticated', [AuthController::class, 'checkUserStatus']);
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::get('files', [FileController::class, 'openFiles']);
+    Route::get('files/downloads/{id}', [FileController::class, 'downloadFiles']);
+    Route::post('files/uploads', [FileController::class, 'uploadFile']);
+
 });
 
 

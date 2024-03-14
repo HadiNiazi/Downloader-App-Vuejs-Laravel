@@ -6,6 +6,8 @@ import Login from '../components/Auth/Login.vue';
 import NotFound from '../components/Errors/404.vue';
 import Dashboard from '../components/Dashboard.vue';
 import store from '../store/index.js';
+import Uploads from '../components/Files/Upload.vue';
+import Downloads from '../components/Files/Download.vue';
 
 const routes = [
 
@@ -40,7 +42,26 @@ const routes = [
         meta: {
             requiresAuth: true
         }
+    },
+
+    {
+        path: '/uploads',
+        name: 'uploads',
+        component: Uploads,
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/downloads',
+        name: 'downloads',
+        component: Downloads,
+        meta: {
+            requiresAuth: true
+        }
     }
+
 ];
 
 const router = createRouter({
@@ -55,7 +76,7 @@ router.beforeEach((to, from, next) => {
     const isAuthenticated = store.getters.authStatus
 
     if (to.meta.requiresAuth && !isAuthenticated) {
-        next('/login')
+        // next('/login')
     }
 
     else if ((to.name === 'login' || to.name === 'register') && isAuthenticated) {
